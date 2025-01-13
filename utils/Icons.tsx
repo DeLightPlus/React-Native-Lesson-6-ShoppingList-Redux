@@ -28,13 +28,12 @@ type IconProps = {
         return <Icon name="apple" size={size} color={color} />
         break;
 
-
       case "shopping-basket":
         return <Icon name="shopping-basket" size={size} color={color} />
         break;
 
-      case "microphone":
-          return <Icon name="microphone" size={size} color={color} />
+      case "plus":
+          return <Icon name="plus-square" size={size} color={color} />
           break;
 
       case "play":

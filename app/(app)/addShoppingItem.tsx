@@ -13,7 +13,7 @@ export default function AddItemScreen() {
   const handleAddItem = () => {
     if (itemName.trim() && quantity.trim()) {
       dispatch(addItem({ id: Date.now(), name: itemName, quantity }));
-      router.push("/shopping-list");
+      router.push("/shoppinglist");
     }
   };
 

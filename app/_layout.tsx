@@ -21,7 +21,9 @@ export default function RootLayout()
           <Stack.Screen name="(onboarding)/onboarding" options={{ headerShown: false }} />
           <Stack.Screen name="(auth)/login" />
           <Stack.Screen name="(auth)/register" />
-          <Stack.Screen name="(app)/index" />
+          <Stack.Screen name="(app)/home" />
+          <Stack.Screen name="(app)/addShoppingItem" />
+          <Stack.Screen name="(app)/shoppinglist" />
         </Stack>  
       </SessionProvider>    
     </Provider>
