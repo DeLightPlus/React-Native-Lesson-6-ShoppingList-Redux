@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Icons from "@/utils/Icons";
 
 const { width } = Dimensions.get("window");
 
@@ -17,9 +18,9 @@ export default function Onboarding() {
   const [currentPage, setCurrentPage] = useState(0);
 
   const pages = [
-    { id: 1, title: "Welcome", description: "Welcome to the Shopping List App!" },
+    { id: 1, title: "", description: "Welcome to the Shopping List App!" },
     { id: 2, title: "Features", description: "Add, edit, and manage your shopping items." },
-    { id: 3, title: "Get Started", description: "Let's get started!" },
+    { id: 3, title: "", description: "" },
   ];
 
   const handleScroll = (event) => {
@@ -42,6 +43,11 @@ export default function Onboarding() {
       >
         {pages.map((page) => (
           <View key={page.id} style={[styles.page, { width }]}>
+            <View style={styles.iconLogo }>
+              <Icons name="shopping-basket" color="black" size={86}/>
+              <Text style={styles.title}>EasyShopper</Text>
+            </View>           
+            
             <Text style={styles.title}>{page.title}</Text>
             <Text style={styles.description}>{page.description}</Text>
           </View>
@@ -68,16 +74,24 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  iconLogo:
+  {
+    padding: 16,
+    justifyContent:"center",
+    alignItems:"center"
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#6200ea",
+    // color: "#6200ea",
+    color:"black",
     marginBottom: 10,
   },
   description: {
     fontSize: 16,
     textAlign: "center",
     paddingHorizontal: 20,
-    color: "#333",
+    color:"black",
+    // color: "#333",
   },
 });
