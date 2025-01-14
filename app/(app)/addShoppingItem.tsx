@@ -4,7 +4,8 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { addItem } from "@/redux/actions";
 
-export default function AddItemScreen() {
+export default function AddItemScreen({ closeModal }) 
+{
   const [itemName, setItemName] = useState("");
   const [quantity, setQuantity] = useState("");
   const router = useRouter();
@@ -13,7 +14,8 @@ export default function AddItemScreen() {
   const handleAddItem = () => {
     if (itemName.trim() && quantity.trim()) {
       dispatch(addItem({ id: Date.now(), name: itemName, quantity }));
-      router.push("/shoppinglist");
+      // router.push("/shoppinglist");
+      closeModal(); 
     }
   };
 
@@ -33,6 +35,7 @@ export default function AddItemScreen() {
         keyboardType="numeric"
       />
       <Button title="Add Item" onPress={handleAddItem} />
+      <Button title="Cancel" onPress={closeModal} />
     </View>
   );
 }

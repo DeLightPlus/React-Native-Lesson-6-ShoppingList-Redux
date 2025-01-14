@@ -1,14 +1,17 @@
-import React, { useEffect } from "react";
-import { View, Text, Button, StyleSheet, Pressable } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, Button, StyleSheet, Pressable, Modal } from "react-native";
 import { useRouter } from "expo-router";
 
 import { useSession } from "@/context/AuthContext";
 import ShoppingListScreen from "./shoppinglist";
 import Icons from "@/utils/Icons";
+import AddItemScreen from "./addShoppingItem";
 
 export default function HomeScreen() {
   const { session, SignOut } = useSession();
   const router = useRouter();
+
+  const [isModalVisible, setIsModalVisible] = useState(false); 
 
   useEffect(() => {
     if (!session.user) {
@@ -34,8 +37,15 @@ export default function HomeScreen() {
         
       </View>
 
+      <Modal visible={isModalVisible} animationType="slide" transparent={true}>
+        <View style={styles.modalBackground}>
+          <View style={styles.modalContent}>
+            <AddItemScreen closeModal={() => setIsModalVisible(false)} />
+          </View>
+        </View>
+      </Modal>
              
-        {/* <Button title="View Shopping List" onPress={() => router.push("/shoppinglist")} /> */}
+      {/* <Button title="View Shopping List" onPress={() => router.push("/shoppinglist")} /> */}
          
       
       <ShoppingListScreen />
@@ -44,10 +54,7 @@ export default function HomeScreen() {
       >
         <Icons name="plus" color={"#ccc"} size={75}/>
         {/* <Text>Add Item</Text> */}
-      </Pressable> 
-
-      {/* <Text style={styles.title}>Welcome to the Shopping List App!</Text> */}
-      
+      </Pressable>  
       
     </View>
   );
@@ -97,7 +104,19 @@ const styles = StyleSheet.create({
     justifyContent:"center",
     // backgroundColor:"black",
     width: 86,
-    height: 86,
-    
-  }
+    height: 86,    
+  },
+  modalBackground: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",  // Semi-transparent background
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 8,
+    width: "80%",
+    maxWidth: 400,
+  },
 });
