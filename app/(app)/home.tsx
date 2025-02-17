@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Button, StyleSheet, Pressable, Modal } from "react-native";
+import { View, Text, Button, StyleSheet, Pressable, Modal, Dimensions } from "react-native";
 import { useRouter } from "expo-router";
 
 import { useSession } from "@/context/AuthContext";
 import ShoppingListScreen from "./shoppinglist";
 import Icons from "@/utils/Icons";
 import AddItemScreen from "./addShoppingItem";
+
+const { height } = Dimensions.get("window");  // Get the screen height
 
 export default function HomeScreen() {
   const { session, SignOut } = useSession();
@@ -27,35 +29,26 @@ export default function HomeScreen() {
           <Text style={styles.logoTitle}>EasyShopper</Text>
         </View>
         <View>
-          <Pressable
-            onPress={SignOut}
-          >
+          <Pressable onPress={SignOut}>
             <Text style={styles.title}>{session.username}</Text>
           </Pressable>
-         
         </View>
-        
       </View>
 
       <Modal visible={isModalVisible} animationType="slide" transparent={true}>
         <View style={styles.modalBackground}>
-          <View style={styles.modalContent}>
+          <View style={[styles.modalContent, { height: height * 0.5 }]}>
             <AddItemScreen closeModal={() => setIsModalVisible(false)} />
           </View>
         </View>
       </Modal>
-             
-      {/* <Button title="View Shopping List" onPress={() => router.push("/shoppinglist")} /> */}
-         
-      
+        
       <ShoppingListScreen />
       <Pressable style={styles.addBtn}
-        onPress={() => router.push("/addShoppingItem")} 
+        onPress={() => setIsModalVisible(true)} // Open the modal
       >
-        <Icons name="plus" color={"#ccc"} size={75}/>
-        {/* <Text>Add Item</Text> */}
+        <Icons name="plus" color={"darkgrey"} size={75}/>
       </Pressable>  
-      
     </View>
   );
 }
@@ -71,52 +64,50 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
 
-  iconLogo:
-  {
-    flex:1,
-    flexDirection:"row",
-    justifyContent:"center",
-    alignItems:"center"
+  iconLogo: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   logoTitle: {
     fontSize: 18,
     fontWeight: "bold",
-
-    color:"black",
+    color: "black",
     marginTop: 0,
   },
 
-  header:{
-    flexDirection:"row",
-    height:32,
-    backgroundColor:"lightblue",
-    alignItems:"center",
+  header: {
+    flexDirection: "row",
+    height: 32,
+    backgroundColor: "lightblue",
+    alignItems: "center",
     paddingHorizontal: 8,
-    marginBottom:8
+    marginBottom: 8,
   },
 
-  addBtn:{
-    position:"absolute",
+  addBtn: {
+    position: "absolute",
     bottom: 10,
     right: "5%",
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
-    // backgroundColor:"black",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     width: 86,
-    height: 86,    
+    height: 86,
   },
+  
   modalBackground: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-end", // Position modal at the bottom
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",  // Semi-transparent background
   },
+  
   modalContent: {
     backgroundColor: "white",
     padding: 20,
     borderRadius: 8,
-    width: "80%",
-    maxWidth: 400,
+    width: "100%", // Ensure full width
   },
 });

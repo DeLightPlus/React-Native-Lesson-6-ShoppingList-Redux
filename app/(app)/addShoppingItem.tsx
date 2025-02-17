@@ -1,26 +1,52 @@
-import { View, TextInput, Button, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
+import React, { useState } from "react";
+import { View, TextInput, Button, StyleSheet, Text, Image } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
 import { addItem } from "@/redux/actions";
 
 export default function AddItemScreen({ closeModal }) 
 {
-  const [itemName, setItemName] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const router = useRouter();
   const dispatch = useDispatch();
 
+  const categories = [
+    { label: "Fruits", value: "fruits", image: require("../../assets/images/fruits.jpg") },
+    { label: "Vegetables", value: "vegetables", image: require("../../assets/images/15177.jpg") },
+    { label: "Dairy", value: "dairy", image: require("../../assets/images/15177.jpg") },
+    { label: "Meat", value: "meat", image: require("../../assets/images/15177.jpg") },
+  ];
+
+  const [itemName, setItemName] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("fruits");  
+  
+  // Handle add item logic
   const handleAddItem = () => {
-    if (itemName.trim() && quantity.trim()) {
+    if (itemName.trim() && quantity.trim()) 
+    {
       dispatch(addItem({ id: Date.now(), name: itemName, quantity }));
-      // router.push("/shoppinglist");
-      closeModal(); 
+      closeModal(); // Close modal after adding item
     }
   };
 
   return (
     <View style={styles.container}>
+      {/* Category Picker */}
+      <View style={styles.pickerContainer}>
+        <Image source={categories.find((cat) => cat.value === selectedCategory)?.image} style={styles.categoryImage} />
+        <View style={{width:"80%"}}>
+          <Text style={styles.label}>Select Category</Text>
+          <Picker
+            selectedValue={selectedCategory}
+            onValueChange={(itemValue) => setSelectedCategory(itemValue)}
+            style={styles.picker}
+          >
+            {categories.map((category) => (
+              <Picker.Item key={category.value} label={category.label} value={category.value} />
+            ))}
+          </Picker>
+        </View>        
+      </View>
+
       <TextInput
         style={styles.input}
         placeholder="Item Name"
@@ -34,8 +60,10 @@ export default function AddItemScreen({ closeModal })
         onChangeText={setQuantity}
         keyboardType="numeric"
       />
-      <Button title="Add Item" onPress={handleAddItem} />
-      <Button title="Cancel" onPress={closeModal} />
+      <View style={styles.buttonGroup}>
+        <Button title="Add Item" onPress={handleAddItem} />
+        <Button title="Cancel" onPress={closeModal} />
+      </View>
     </View>
   );
 }
@@ -45,7 +73,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 16,
+    padding: 20,
+    backgroundColor: "white", // Added background color for clarity
   },
   input: {
     width: "80%",
@@ -55,5 +84,36 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 20,
+    fontSize: 16, // Adding font size for better readability
+  },
+  pickerContainer: {
+    flexDirection:"row",
+    // width: "80%",
+    marginBottom: 20,
+    alignItems: "center",
+    gap:8
+  },
+  picker: {
+    // width: "100%",
+    height: 60,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  categoryImage: {
+    width: 86,
+    height: 86,
+    resizeMode: "contain",
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  buttonGroup: {
+    width: "80%",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
