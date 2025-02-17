@@ -18,7 +18,7 @@ const ShoppingItem = sequelize.define('ShoppingItem', {
 });
 
 sequelize.sync({ force: false })
-  .then(() => console.log('ShoppingItem table ready ✅'))
+  .then(() => console.log('ShoppingItem table ready'))
   .catch((err) => console.error('Error creating table:', err));
 
 module.exports = ShoppingItem;

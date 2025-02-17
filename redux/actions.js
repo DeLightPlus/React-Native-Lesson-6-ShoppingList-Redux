@@ -5,7 +5,10 @@ export const EDIT_ITEM = 'EDIT_ITEM';
 export const DELETE_ITEM = 'DELETE_ITEM';
 export const SET_ITEMS = 'SET_ITEMS';
 
-const API_URL = 'http://192.168.18.28:5000/api/items'; // Replace with your backend URL if deployed
+// const API_URL = 'http://192.168.18.28:5000/api/items'; 
+const API_URL = 'https://react-native-lesson-6-shoppinglist-redux.onrender.com/api/items'; 
+
+
 
 // Fetch all items from the server
 export const fetchItems = () => async (dispatch) => {
