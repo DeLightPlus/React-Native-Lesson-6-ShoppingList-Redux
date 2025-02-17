@@ -1,22 +1,31 @@
+
+import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, StyleSheet, Pressable } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteItem, editItem } from "@/redux/actions";
+import { deleteItem, editItem, fetchItems } from "@/redux/actions";
+
 import Icons from "@/utils/Icons";
-import React, { useState } from "react";
-import CheckBox from "@react-native-community/checkbox";
 import CustomCheckbox from "@/components/CustomCheckbox";
 
-export default function ShoppingListScreen() {
-  const shoppingList = useSelector((state) => state.shopping.shoppingList);
+export default function ShoppingListScreen() 
+{
   const dispatch = useDispatch();
-
+  const shoppingList = useSelector((state) => state.shopping.shoppingList);  
   const [checkedItems, setCheckedItems] = useState({});
+
+  useEffect(() => {
+    dispatch(fetchItems()); // Fetch items from the database
+  }, [dispatch]);
+
   const handleCheckboxChange = (id) => {
     setCheckedItems((prevState) => ({
       ...prevState,
       [id]: !prevState[id],  // Toggle the checked state of the item
     }));
   };
+
+  console.log("shoppingList: ",shoppingList);
+  
 
   return (
     <View style={styles.container}>

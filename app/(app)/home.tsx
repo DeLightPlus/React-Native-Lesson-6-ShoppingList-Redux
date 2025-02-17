@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Button, StyleSheet, Pressable, Modal, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Pressable, Modal, Dimensions } from "react-native";
 import { useRouter } from "expo-router";
 
 import { useSession } from "@/context/AuthContext";
@@ -44,6 +44,7 @@ export default function HomeScreen() {
       </Modal>
         
       <ShoppingListScreen />
+      
       <Pressable style={styles.addBtn}
         onPress={() => setIsModalVisible(true)} // Open the modal
       >
