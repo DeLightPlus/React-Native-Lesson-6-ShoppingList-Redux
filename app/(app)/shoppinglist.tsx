@@ -48,12 +48,12 @@ export default function ShoppingListScreen()
               <Pressable style={styles.editBtn}
                 onPress={() => dispatch(editItem(item.id))}
               >
-                <Icons name="edit" size={24} color="black" />
+                <Icons name="edit" size={14} color="black" />
               </Pressable> 
               <Pressable style={styles.deleteBtn}
                 onPress={() => dispatch(deleteItem(item.id))}
               >
-                <Icons name="delete" size={24} color="white" />
+                <Icons name="delete" size={14} color="white" />
               </Pressable> 
             </View>
 
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
 
   },
   editBtn:{
+    alignItems:"center",
     width:32,
     height:32,
     padding:8,
@@ -99,6 +100,7 @@ const styles = StyleSheet.create({
 
   },
   deleteBtn:{
+    alignItems:"center",
     width:32,
     height:32,
     padding:8,

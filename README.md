@@ -1,50 +1,92 @@
-# Welcome to your Expo app 👋
+# Shopping List App with Redux
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
 
-## Get started
+This is a **Shopping List App** built using **React** and **Redux** for state management. The application allows users to manage their shopping list by adding, editing, and deleting items. Additionally, it provides features for marking items as purchased, persists data between app sessions using a **Node.js server with a PostgreSQL database** hosted on **Render**, and includes accessibility features for all users.
 
-1. Install dependencies
+## Features
 
-   ```bash
-   npm install
-   ```
+- Add new items to the shopping list.
+- Edit the name or quantity of existing items.
+- Delete items from the list.
+- Mark items as purchased.
+- Visual feedback when actions are completed.
+- Data persistence using **Node.js** and **PostgreSQL** with **Render**.
+- Accessibility features for screen readers.
 
-2. Start the app
+## Requirements
 
-   ```bash
-    npx expo start
-   ```
+- Node.js (for the backend server)
+- React (for the frontend)
+- Redux (for state management)
+- PostgreSQL (for storing shopping list data)
+- Render (for hosting the backend)
 
-In the output, you'll find options to open the app in a
+## Technologies Used
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **Frontend:**
+  - React Native (via Expo)
+  - Redux
+  - Axios (for API calls)
+  
+- **Backend:**
+  - Node.js
+  - Express.js
+  - PostgreSQL
+  - Sequelize (for ORM)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- **Persistence:**
+  - Data is stored in a PostgreSQL database, and the data is persisted using the backend (hosted on Render).
 
-## Get a fresh project
+## Installation
 
-When you're ready, run:
+### 1. Clone the repository
 
 ```bash
-npm run reset-project
+git clone https://github.com/DeLightPlus/React-Native-Lesson-6-ShoppingList-Redux.git
+cd shopping-list-app
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Install dependencies for the frontend 
+- make sure you're in the main branch
 
-## Learn more
+```bash
+npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### 3. Running the application
+**Running the frontend (Expo React Native app)**
+To run the **Expo React Native** app, use the following command:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npx expo start
+```
 
-## Join the community
+This will start the app and open it in the Expo app or a simulator.
 
-Join our community of developers creating universal apps.
+### Redux Setup
+**Actions**
+- ✅ Add Item: Adds a new item to the shopping list.
+- ❌ Edit Item: Edits the name or quantity of an existing item.
+- ✅ Delete Item: Deletes an item from the list.
+- ❌ Mark as Purchased: Marks an item as purchased.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+**Reducers**
+Reducers are created to handle each of the actions and update the Redux store accordingly.
+
+**Store**
+The Redux store is configured to manage the state of the shopping list, including the list of items, the user's interactions, and their feedback.
+
+**Persistence**
+We use a **Node.js server with PostgreSQL** for data persistence. The shopping list data is stored in a PostgreSQL database hosted on **Render**.
+
+**API Endpoints**
+The backend provides the following API endpoints for CRUD operations on the shopping list:
+- **GET /items**: Fetch all shopping list items.
+- **POST /items**: Add a new item to the list.
+- **PUT /items/:id**: Edit an existing item.
+- **DELETE /items/:id**: Delete an item from the list.
+
+**Deployment**
+1. **Frontend Deployment:** The React Native app is deployed using **Expo**. You can either use **Expo Go** on your mobile device or run it on an emulator.
+2. **Backend Deployment:** The backend is deployed to **Render**. Ensure that the PostgreSQL database is connected correctly in the .env file.
